@@ -1,0 +1,9 @@
+WaitMessage = False
+DelayTimeout = 2
+Delay = True
+BaudRate = 19200
+Timeout = 30
+TxnTimeout = 300
+UploadTimeout = 300
+TracePath =  C:\FAB\ECR\Trace
+Trace =  true

@@ -1,0 +1,149 @@
+; Windows Virtual Serial Port Setup File
+; Manufacturer: Qualcomm Incorporated
+; Copyright (c) 2015 Qualcomm Technologies, Inc.
+; All rights reserved.
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 03/25/2016,2.1.2.2
+Catalogfile=qcser.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+;%QUALCOMM% = QcomSerialPort, NTia64, NTamd64, NTarm
+%QUALCOMM% = QcomSerialPort, NTx86, NTia64, NTamd64
+
+[SourceDisksNames]
+1 = %QcomSrcDisk%,"",,\serial\i386
+2 = %QcomSrcDisk%,"",,\serial\amd64
+
+[SourceDisksFiles.x86]
+  qcusbser.sys = 1
+
+[SourceDisksFiles.amd64]
+  qcusbser.sys = 2
+
+[SourceDisksFiles.ia64]
+  qcusbser.sys = 2
+
+[QcomSerialPort]
+%QcomDevice90910%  = QportInstall00, USB\VID_05C6&PID_9091&MI_00
+%QcomDevice90911%  = QportInstall00, USB\VID_05C6&PID_9091&MI_02
+%QcomDevice90912%  = QportInstall00, USB\VID_05C6&PID_9191&MI_00
+%QcomDevice90913%  = QportInstall00, USB\VID_05C6&PID_9191&MI_02
+%QcomDevice90914%  = QportInstall00, USB\VID_05C6&PID_9039&MI_02
+
+[QcomSerialPort.NTx86]
+%QcomDevice90910%  = QportInstall00, USB\VID_05C6&PID_9091&MI_00
+%QcomDevice90911%  = QportInstall00, USB\VID_05C6&PID_9091&MI_02
+%QcomDevice90912%  = QportInstall00, USB\VID_05C6&PID_9191&MI_00
+%QcomDevice90913%  = QportInstall00, USB\VID_05C6&PID_9191&MI_02
+%QcomDevice90914%  = QportInstall00, USB\VID_05C6&PID_9039&MI_02
+
+[QcomSerialPort.NTia64]
+%QcomDevice90910%  = QportInstall00, USB\VID_05C6&PID_9091&MI_00
+%QcomDevice90911%  = QportInstall00, USB\VID_05C6&PID_9091&MI_02
+%QcomDevice90912%  = QportInstall00, USB\VID_05C6&PID_9191&MI_00
+%QcomDevice90913%  = QportInstall00, USB\VID_05C6&PID_9191&MI_02
+%QcomDevice90914%  = QportInstall00, USB\VID_05C6&PID_9039&MI_02
+
+[QcomSerialPort.NTamd64]
+%QcomDevice90910%  = QportInstall00, USB\VID_05C6&PID_9091&MI_00
+%QcomDevice90911%  = QportInstall00, USB\VID_05C6&PID_9091&MI_02
+%QcomDevice90912%  = QportInstall00, USB\VID_05C6&PID_9191&MI_00
+%QcomDevice90913%  = QportInstall00, USB\VID_05C6&PID_9191&MI_02
+%QcomDevice90914%  = QportInstall00, USB\VID_05C6&PID_9039&MI_02
+
+;[QcomSerialPort.NTarm]
+;%QcomDevice90910%  = QportInstall00, USB\VID_05C6&PID_9091&MI_00
+;%QcomDevice90911%  = QportInstall00, USB\VID_05C6&PID_9091&MI_02
+;%QcomDevice90912%  = QportInstall00, USB\VID_05C6&PID_9191&MI_00
+;%QcomDevice90913%  = QportInstall00, USB\VID_05C6&PID_9191&MI_02
+;%QcomDevice90914%  = QportInstall00, USB\VID_05C6&PID_9039&MI_02
+
+[QportInstall00.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg
+
+[QportInstall01.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg, DevFunction1
+
+[QportInstall02.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg, DevFunction2
+
+[QportInstall05.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg
+
+[QCUsbDriverFiles]
+qcusbser.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.NT.Services]
+AddService=qcusbser,  0x00000002, QC_USBSerialService
+
+[QportInstall01.NT.Services]
+AddService=qcusbser,  0x00000002, QC_USBSerialService
+
+[QportInstall02.NT.Services]
+AddService=qcusbser,  0x00000002, QC_USBSerialService
+
+[QportInstall05.NT.Services]
+AddService=qcusbser,  0x00000002, QC_USBSerialService05
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbser.sys
+
+[QC_USBSerialService05]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbser.sys
+AddReg        = RegEntries
+
+[All00]
+HKR,,NTMPDriver,,qcusbser.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[DevFunction2]
+HKR,,QCDeviceFunction,0x00010001,2
+
+[RegEntries]
+HKR, , QCDriverSelectiveSuspendIdleTime, 0x00010001, 0x80000003
+HKR, , QCDriverPowerManagementEnabled, 0x00010001, 1
+
+
+[AddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+HKLM,SYSTEM\CurrentControlSet\Control\UsbFlags,IgnoreHWSerNum05C69091,1,1
+HKLM,SYSTEM\CurrentControlSet\Control\UsbFlags,IgnoreHWSerNum05C69191,1,1
+HKLM,SYSTEM\CurrentControlSet\Control\UsbFlags,IgnoreHWSerNum05C69039,1,1
+
+[Strings]
+QCUSBSER = "Qualcomm USB Device for Legacy Serial Communication"
+QcomSrcDisk = "QUALCOMM USB Driver Disk"
+QUALCOMM = "Qualcomm Incorporated"
+QcomDevice90910 = "Qualcomm HS-USB Diagnostics 9091"
+QcomDevice90911 = "JSR USB UART 9091"
+QcomDevice90912 = "Qualcomm HS-USB Diagnostics 9191"
+QcomDevice90913 = "JSR USB UART 9191"
+QcomDevice90914 = "JSR USB UART 9039"
+

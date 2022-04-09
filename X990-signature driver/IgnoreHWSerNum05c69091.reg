@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\UsbFlags]
+"GlobalDisableSerNumGen"=hex:01
+"IgnoreHWserNum05C69091"=hex:01
+"IgnoreHWserNum05C69191"=hex:01
+"IgnoreHWserNum05C69039"=hex:01
