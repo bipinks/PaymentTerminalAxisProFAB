@@ -305,21 +305,27 @@ echo "IIS-LegacySnapIn is not installed. We should install it."
     set /A FEATURES_INSTALLED+=1
 )
 
-if %FEATURES_INSTALLED%==1 goto features_installed
-else features_not_installed
+@echo off
+cls
+
+if %FEATURES_INSTALLED%==1 (
+ goto features_installed
+) else (
+ goto features_not_installed
+)
 
 :features_installed
 echo %FEATURES_INSTALLED% Windows Features have now been configured.
-@echo off
 SET /P QUESTION=Reboot computer now? (Y/N):
 If /I %QUESTION%==Y goto reboot
 echo Will not reboot. Now exiting command prompt.
-timeout /t 5
+timeout /t 10
 exit
 :reboot
 shutdown -r -t 5
 
-:features_installed
-echo No features are installed/Existed in system. Now exiting command prompt.
-timeout /t 5
+:features_not_installed
+echo Nothing is installed because the required features might be already installed in the system.
+echo So, Now exiting command prompt.
+timeout /t 10
 exit
