@@ -52,5 +52,5 @@ ECHO %batchName%
 
 
 @echo off
-powershell.exe -ExecutionPolicy Bypass -File "%~dp0\IIS_Configuration_Script.ps1"
+powershell.exe -ExecutionPolicy Bypass -File "%~dp0\Scripts\IIS_Configuration_Script.ps1"
 pause
