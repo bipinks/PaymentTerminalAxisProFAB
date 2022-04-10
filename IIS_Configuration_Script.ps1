@@ -4,7 +4,7 @@ Write-Host "IIS Configuration for FAB Payment Terminal @ AxisPro ERP"
 Write-Host "Developed By : Bipin @ Direct Axis Technology L.L.C  `r`n"
 Write-Host "*************************************************  `r`n"
 
-$NEW_BINDING_PORT = Read-Host -Prompt 'Which PORT IIS has to be configured ?'
+$NEW_BINDING_PORT = Read-Host -Prompt 'In which PORT you want to configure new bindings? '
 
 if (Get-Module -ListAvailable -Name IISAdministration)
 {
