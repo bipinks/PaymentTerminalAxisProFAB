@@ -1,0 +1,1 @@
+Install x86 or x64 driver from ./X990_Signature_Driver folder
